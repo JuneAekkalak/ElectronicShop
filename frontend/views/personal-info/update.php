@@ -12,7 +12,7 @@ if (empty($model->fname)) {
 }
 
 $this->params['breadcrumbs'][] = ['label' => 'Personal Infos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->_id, 'url' => ['view', '_id' => (string) $model->_id]];
+// $this->params['breadcrumbs'][] = ['label' => $model->_id, 'url' => ['view', '_id' => (string) $model->_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="container">
