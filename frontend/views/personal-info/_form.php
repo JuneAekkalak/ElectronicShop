@@ -167,6 +167,103 @@ use yii\widgets\ActiveForm;
                         </div>
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mt-3 text-primary">Google Map</h6>
+                                <h6 class="mb-2 text-secondary">ปักหมุดสถานที่ที่คุณต้องการจัดส่ง</h6>
+                                <?= $form->field($model, 'address[4]')->hiddenInput(['id' => 'user_cordinates'])->label(false) ?>
+                                <div class="input-group mb-3">
+                                    <input id="place" class="form-control" type="textbox" placeholder="ค้นหาสถานที่สำคัญ เช่น วัด, ตำบล, อำเภอ" />
+                                    <button id="findPlace" class="btn btn-primary" type="button">ค้นหา</button>
+                                </div>
+
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div id="map" style="width: 100%; height: 400px"></div>
+                            </div>
+                            <script>
+                                function initMap() {
+                                    var map;
+                                    var cordinates = {
+                                        lat: 13.847860,
+                                        lng: 100.604274
+                                    };
+                                    var marker;
+
+                                    map = new google.maps.Map(document.getElementById('map'), {
+                                        center: cordinates,
+                                        zoom: 16
+                                    });
+
+                                    infoWindow = new google.maps.InfoWindow;
+
+                                    var geocoder = new google.maps.Geocoder();
+                                    document.getElementById('findPlace').addEventListener('click', function() {
+                                        geocoderAddress(geocoder, map);
+                                    });
+
+                                    var myMarker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(cordinates),
+                                        map: map,
+                                        draggable: true
+                                    });
+
+                                    // Try HTML5 geolocation.
+                                    if (navigator.geolocation) {
+                                        navigator.geolocation.getCurrentPosition(function(position) {
+                                            var pos = {
+                                                lat: position.coords.latitude,
+                                                lng: position.coords.longitude
+                                            };
+
+                                            infoWindow.setPosition(pos);
+                                            // infoWindow.setContent('Location found. lat: ' + position.coords.latitude + ', lng: ' + position.coords.longitude + ' ');
+                                            infoWindow.setContent('ที่อยู่ปัจจุบันของคุณ');
+                                            infoWindow.open(map);
+                                            map.setCenter(pos);
+                                            myMarker.setPosition(new google.maps.LatLng(pos));
+                                        }, function() {
+                                            handleLocationError(true, infoWindow, map.getCenter());
+                                        });
+                                    } else {
+                                        // Browser doesn't support Geolocation
+                                        handleLocationError(false, infoWindow, map.getCenter());
+                                    }
+
+                                    google.maps.event.addListener(myMarker, 'drag', function() {
+                                        var markerPosition = myMarker.position.lat().toFixed(6) + ',' + myMarker.position.lng().toFixed(6);
+                                        document.getElementById('user_cordinates').value = markerPosition;
+                                    });
+                                }
+
+                                function geocoderAddress(geocoder, resultMap) {
+                                    var address = document.getElementById('place').value;
+                                    geocoder.geocode({
+                                        'address': address
+                                    }, function(results, status) {
+                                        if (status === 'OK') {
+                                            resultMap.setCenter(results[0].geometry.location);
+                                            var marker = new google.maps.Marker({
+                                                map: resultMap,
+                                                position: results[0].geometry.location
+                                            })
+                                        } else {
+                                            alert('ไม่พบสถานที่');
+                                        }
+                                    })
+                                }
+
+                                function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                                    infoWindow.setPosition(pos);
+                                    infoWindow.setContent(browserHasGeolocation ?
+                                        'Error: The Geolocation service failed.' :
+                                        'Error: Your browser doesn\'t support geolocation.');
+                                    infoWindow.open(map);
+                                }
+                            </script>
+                            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoL1uFq7AAYuW5qQNg1kZIxIWfdCBc81U&callback=initMap"></script>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+                        </div>
+                        <div class="row gutters mt-4">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="text-right">
                                     <?= Html::submitButton('Save', ['class' => 'btn btn-primary btn-block']) ?>
                                 </div>
