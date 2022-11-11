@@ -208,47 +208,49 @@ use yii\widgets\DetailView;
                                     </div>
                                 </div>
                             </div>
-                            <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="mt-3 mb-2 text-primary">Google Map</h6>
-                                    <span class="text-secondary">
-                                        พิกัดปัจจุบัน
-                                        <span id="user_cordinate">
-                                            <?=
-                                            $str = $personal->address[4];
-                                            ?>
+                            <?php
+                                if(isset($personal->address[4])) { ?>
+                                <div class="row gutters">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <h6 class="mt-3 mb-2 text-primary">Google Map</h6>
+                                        <span class="text-secondary">
+                                            พิกัดปัจจุบัน
+                                            <span id="user_cordinate">
+                                                <?= $personal->address[4] ?>
+                                            </span>
                                         </span>
-                                    </span>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div id="map" style="width: 100%; height: 400px"></div>
+                                        <script>
+                                            function initMap() {
+                                                var temp = document.getElementById('user_cordinate').innerHTML;
+                                                const user_cordinate = temp.split(",");
+                                                var map;
+                                                var cordinates = {
+                                                    lat: parseFloat(user_cordinate[0]),
+                                                    lng: parseFloat(user_cordinate[1])
+                                                };
+
+                                                var marker;
+
+                                                map = new google.maps.Map(document.getElementById('map'), {
+                                                    center: cordinates,
+                                                    zoom: 16
+                                                });
+
+                                                var marker = new google.maps.Marker({
+                                                    position: new google.maps.LatLng(cordinates),
+                                                    map: map,
+                                                });
+                                            }
+                                        </script>
+                                        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoL1uFq7AAYuW5qQNg1kZIxIWfdCBc81U&callback=initMap"></script>
+                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+                                    </div>
                                 </div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div id="map" style="width: 100%; height: 400px"></div>
-                                    <script>
-                                        function initMap() {
-                                            var temp = document.getElementById('user_cordinate').innerHTML;
-                                            const user_cordinate = temp.split(",");
-                                            var map;
-                                            var cordinates = {
-                                                lat: parseFloat(user_cordinate[0]),
-                                                lng: parseFloat(user_cordinate[1])
-                                            };
-
-                                            var marker;
-
-                                            map = new google.maps.Map(document.getElementById('map'), {
-                                                center: cordinates,
-                                                zoom: 16
-                                            });
-
-                                            var marker = new google.maps.Marker({
-                                                position: new google.maps.LatLng(cordinates),
-                                                map: map,
-                                            });
-                                        }
-                                    </script>
-                                    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoL1uFq7AAYuW5qQNg1kZIxIWfdCBc81U&callback=initMap"></script>
-                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-                                </div>
-                            </div>
+                            <?php
+                                } ?>
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="text-right">
