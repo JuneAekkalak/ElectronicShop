@@ -181,12 +181,12 @@ use yii\widgets\ActiveForm;
                             </div>
                             <script>
                                 function initMap() {
+                                    var marker;
                                     var map;
                                     var cordinates = {
                                         lat: 13.847860,
                                         lng: 100.604274
                                     };
-                                    var marker;
 
                                     map = new google.maps.Map(document.getElementById('map'), {
                                         center: cordinates,
@@ -243,7 +243,8 @@ use yii\widgets\ActiveForm;
                                             resultMap.setCenter(results[0].geometry.location);
                                             var marker = new google.maps.Marker({
                                                 map: resultMap,
-                                                position: results[0].geometry.location
+                                                position: results[0].geometry.location,
+                                                draggable: true
                                             })
                                         } else {
                                             alert('ไม่พบสถานที่');
