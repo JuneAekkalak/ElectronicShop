@@ -180,14 +180,14 @@ use yii\widgets\ActiveForm;
                                 <div id="map" style="width: 100%; height: 400px"></div>
                             </div>
                             <script>
+                                var myMarker;
+                                var map;
+
                                 function initMap() {
-                                    var marker;
-                                    var map;
                                     var cordinates = {
                                         lat: 13.847860,
                                         lng: 100.604274
                                     };
-
                                     map = new google.maps.Map(document.getElementById('map'), {
                                         center: cordinates,
                                         zoom: 16
@@ -200,7 +200,7 @@ use yii\widgets\ActiveForm;
                                         geocoderAddress(geocoder, map);
                                     });
 
-                                    var myMarker = new google.maps.Marker({
+                                    myMarker = new google.maps.Marker({
                                         position: new google.maps.LatLng(cordinates),
                                         map: map,
                                         draggable: true
@@ -234,18 +234,26 @@ use yii\widgets\ActiveForm;
                                     });
                                 }
 
-                                function geocoderAddress(geocoder, resultMap) {
+
+                                // searching place on google map
+                                function geocoderAddress(geocoder) {
                                     var address = document.getElementById('place').value;
                                     geocoder.geocode({
                                         'address': address
                                     }, function(results, status) {
                                         if (status === 'OK') {
-                                            resultMap.setCenter(results[0].geometry.location);
-                                            var marker = new google.maps.Marker({
+                                            let location = results[0].geometry.location;
+                                            // center the map
+                                            map.setCenter(location);
+                                            // var marker = new google.maps.Marker({
+                                            /*
+                                            myMarker = new google.maps.Marker({
                                                 map: resultMap,
                                                 position: results[0].geometry.location,
                                                 draggable: true
                                             })
+                                            */
+                                            myMarker.setPosition(location);
                                         } else {
                                             alert('ไม่พบสถานที่');
                                         }
