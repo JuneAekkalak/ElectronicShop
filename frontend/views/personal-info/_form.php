@@ -172,7 +172,7 @@ use yii\widgets\ActiveForm;
                                 <?= $form->field($model, 'address[4]')->hiddenInput(['id' => 'user_cordinates'])->label(false) ?>
                                 <div class="input-group mb-3">
                                     <input id="place" class="form-control" type="textbox" placeholder="ค้นหาสถานที่สำคัญ เช่น วัด, ตำบล, อำเภอ" />
-                                    <button id="findPlace" class="btn btn-primary" type="button">ค้นหา</button>
+                                    <button id="findPlace" class="btn btn-sm btn-primary ml-2" type="button">ค้นหา</button>
                                 </div>
 
                             </div>
@@ -243,16 +243,7 @@ use yii\widgets\ActiveForm;
                                     }, function(results, status) {
                                         if (status === 'OK') {
                                             let location = results[0].geometry.location;
-                                            // center the map
                                             map.setCenter(location);
-                                            // var marker = new google.maps.Marker({
-                                            /*
-                                            myMarker = new google.maps.Marker({
-                                                map: resultMap,
-                                                position: results[0].geometry.location,
-                                                draggable: true
-                                            })
-                                            */
                                             myMarker.setPosition(location);
                                         } else {
                                             alert('ไม่พบสถานที่');

@@ -7,6 +7,7 @@ use frontend\controllers\CartController;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
+use yii\widgets\ActiveForm;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -18,6 +19,7 @@ $this->title = 'Carts';
 $total = 0;
 $subtotal = 0;
 $amount = 0;
+$vat = 0;
 ?>
 <section style="margin: 0px 0;">
   <!-- link bar -->
@@ -77,13 +79,11 @@ $amount = 0;
                   </td>
                   <td>
                     <div class="product_count">
-                      <!-- <span class="input-number-decrement"> <i class="ti-angle-down"></i></span> -->
-                      <input class="input-number" type="number" style="text-align: center;" value="<?= $model->quantity ?>" min="0" max="10" disabled>
-                      <!-- <span class="input-number-increment"> <i class="ti-angle-up"></i></span> -->
+                      <input class="input-number" type="number" style="text-align: center;" value="<?= $model->quantity ?>" disabled>
                     </div>
                   </td>
                   <td>
-                    <h5>฿ <?= number_format($total) ?></h5>
+                    <h5><?= number_format($total) ?></h5>
                   </td>
                   <td>
                     <?= Html::a('Remove', ['delete', '_id' => (string) $model->_id], [
@@ -108,27 +108,36 @@ $amount = 0;
               </tr>
               <tr>
                 <td colspan="5" style="overflow-x: hidden;">
-                  <form name="form" action="" action="get">
-                    <div class="row">
-                      <div class="col">
-                        <input type="text" name="code" class="form-control" placeholder="Coupon Code" />
-                      </div>
-                      <div class="col">
-                        <button class="btn bg-success text-white btn-block text-center" type="submit">Use Coupon</button>
-                      </div>
+                  <div class="row">
+                    <div class="col">
+                      <input type="text" class="form-control coupon-code" placeholder="Coupon Code" />
                     </div>
-                  </form>
+                    <div class="col">
+                      <button class="btn bg-success text-white btn-block text-center use-code">Use Code</button>
+                    </div>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td>
+                <td colspan="2">
                   <h5>Subtotal</h5>
+                  <h6>(VAT Include)</h6>
                 </td>
                 <td>
-                  <h5>฿ <?= number_format($subtotal) ?></h5>
+                  <h5 class="sub-total" style="display: none;"><?= $subtotal ?></h5>
+                  <h5><?= number_format($subtotal) ?> ฿</h5>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td colspan="2">
+                  <h5>Discount</h5>
+                </td>
+                <td>
+                  <h5><span class="discount">0</span> ฿</h5>
                 </td>
               </tr>
             </tbody>
@@ -141,3 +150,23 @@ $amount = 0;
       </div>
   </section>
 </section>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.use-code').click(function(e) {
+      e.preventDefault();
+      let code = $('.coupon-code').val();
+      let subTotal = parseInt($('.sub-total').text());
+      let result;
+
+      if(code.length === 0) {
+        return;
+      }
+
+      result = ((code / 100) * subTotal);
+
+      $('.discount').text(result.toLocaleString());
+    });
+  });
+</script>
