@@ -155,8 +155,14 @@ $vat = 0;
   </section>
 </section>
 
+<?php
+echo $this->context->checkCoupon("DISC20");
+?>
+
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
 <script type="text/javascript">
+  /*
   $(document).ready(function() {
     $('.use-code').click(function(e) {
       e.preventDefault();
@@ -171,9 +177,10 @@ $vat = 0;
       result = ((code / 100) * subTotal);
 
       // set result to html element
-      $('.code-used').text('CODE \"'+code+'\"');
+      $('.code-used').text('CODE \"' + code + '\"');
       $('.discount').text(result.toLocaleString());
       $('.total').text((subTotal - result).toLocaleString());
     });
   });
+  */
 </script>

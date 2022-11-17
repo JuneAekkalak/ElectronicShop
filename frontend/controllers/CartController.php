@@ -3,11 +3,13 @@
 namespace frontend\controllers;
 
 use app\models\Cart;
+use app\models\Coupons;
 use app\models\CartSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii;
+use yii\helpers\Json;
 
 /**
  * CartController implements the CRUD actions for Cart model.
@@ -112,6 +114,16 @@ class CartController extends Controller
         $this->findModel($_id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function checkCoupon($code)
+    {
+        $coupon = Coupons::find()->where(['code' => $code])->one();
+        if($coupon) {
+            echo "Success";
+        } else {
+            echo "Invalid";
+        }
     }
 
     /**
