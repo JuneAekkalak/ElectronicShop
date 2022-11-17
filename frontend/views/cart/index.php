@@ -98,15 +98,6 @@ $vat = 0;
                 </tr>
               <?php $total = 0;
               endforeach; ?>
-              <tr class="bottom_button">
-                <td>
-                  <a class="btn_1" href="index.php?r=cart%2Findex">Update Cart</a>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
               <tr>
                 <td colspan="5" style="overflow-x: hidden;">
                   <div class="row">

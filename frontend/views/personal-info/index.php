@@ -209,16 +209,19 @@ use yii\widgets\DetailView;
                                 </div>
                             </div>
                             <?php
-                                if(isset($personal->address[4])) { ?>
+                            if (isset($personal->address[4])) { ?>
                                 <div class="row gutters">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <h6 class="mt-3 mb-2 text-primary">Google Map</h6>
-                                        <span class="text-secondary">
-                                            พิกัดปัจจุบัน
-                                            <span id="user_cordinate">
-                                                <?= $personal->address[4] ?>
+                                        <div class="form-group">
+                                            <p>Coordinate</p>
+                                            <span class="text-secondary">
+                                                พิกัดปัจจุบัน
+                                                <span id="user_cordinate">
+                                                    <?= $personal->address[4] ?>
+                                                </span>
                                             </span>
-                                        </span>
+                                        </div>
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div id="map" style="width: 100%; height: 400px"></div>
@@ -250,7 +253,7 @@ use yii\widgets\DetailView;
                                     </div>
                                 </div>
                             <?php
-                                } ?>
+                            } ?>
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="text-right">

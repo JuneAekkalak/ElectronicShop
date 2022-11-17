@@ -17,7 +17,7 @@ class CouponsSearch extends Coupons
     public function rules()
     {
         return [
-            [['_id', 'coupon_id', 'code', 'description', 'discount_amount', 'discount_type', 'status'], 'safe'],
+            [['_id', 'coupon_id', 'code', 'description', 'minimum_price', 'discount_amount', 'discount_type', 'status'], 'safe'],
         ];
     }
 
@@ -56,7 +56,14 @@ class CouponsSearch extends Coupons
         }
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'code', $this->code]);
+        $query->andFilterWhere(['like', '_id', $this->_id])
+            ->andFilterWhere(['like', 'coupon_id', $this->coupon_id])
+            ->andFilterWhere(['like', 'code', $this->code])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'minimum_price', $this->minimum_price])
+            ->andFilterWhere(['like', 'discount_amount', $this->discount_amount])
+            ->andFilterWhere(['like', 'discount_type', $this->discount_type])
+            ->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;
     }

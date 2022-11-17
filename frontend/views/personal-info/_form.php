@@ -4,11 +4,9 @@ use yii\helpers\Html;
 use common\models\User;
 use yii\widgets\ActiveForm;
 
-
 /* @var $this yii\web\View */
 /* @var $model app\models\PersonalInfo */
 /* @var $form yii\widgets\ActiveForm */
-
 ?>
 
 <head>
@@ -73,9 +71,12 @@ use yii\widgets\ActiveForm;
     </style>
 </head>
 
-<div class="personal-info-form">
+<div class=" personal-info-form">
     <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'user_id')->hiddenInput(['value' => (string)Yii::$app->user->identity->id])->label(false); ?>
+    <?= $form
+        ->field($model, "user_id")
+        ->hiddenInput(["value" => (string) Yii::$app->user->identity->id])
+        ->label(false) ?>
     <!-- template -->
     <div class="container">
         <div class="row gutters">
@@ -85,9 +86,11 @@ use yii\widgets\ActiveForm;
                         <div class="account-settings">
                             <div class="user-profile">
                                 <div class="user-avatar">
-                                    <?php
-                                    if (!empty($model->picture)) { ?>
-                                        <?= Html::img($model->picture, ['class' => 'responsive', 'style' => 'width: 100%;']); ?>
+                                    <?php if (!empty($model->picture)) { ?>
+                                        <?= Html::img($model->picture, [
+                                            "class" => "responsive",
+                                            "style" => "width: 100%;",
+                                        ]) ?>
                                         <h5 class="text-muted">User profile</h5>
                                     <?php } else { ?>
                                         <h3>You don't have a profile picture.</h3>
@@ -107,26 +110,32 @@ use yii\widgets\ActiveForm;
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'fname')->label('First Name') ?>
+                                    <?= $form
+                                        ->field($model, "fname")
+                                        ->label("First Name") ?>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'lname')->label('Last Name') ?>
+                                    <?= $form
+                                        ->field($model, "lname")
+                                        ->label("Last Name") ?>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'phone') ?>
+                                    <?= $form->field($model, "phone") ?>
                                 </div>
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'gender')->radioList([
-                                        'male' => 'Male',
-                                        'female' => 'Female',
-                                        'other' => 'Other'
-                                    ]); ?>
+                                    <?= $form
+                                        ->field($model, "gender")
+                                        ->radioList([
+                                            "male" => "Male",
+                                            "female" => "Female",
+                                            "other" => "Other",
+                                        ]) ?>
                                 </div>
                             </div>
                         </div>
@@ -136,22 +145,30 @@ use yii\widgets\ActiveForm;
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'address[0]')->label("House number") ?>
+                                    <?= $form
+                                        ->field($model, "address[0]")
+                                        ->label("House number") ?>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'address[1]')->label("City") ?>
+                                    <?= $form
+                                        ->field($model, "address[1]")
+                                        ->label("City") ?>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'address[2]')->label("State") ?>
+                                    <?= $form
+                                        ->field($model, "address[2]")
+                                        ->label("State") ?>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'address[3]')->label("Postal Code") ?>
+                                    <?= $form
+                                        ->field($model, "address[3]")
+                                        ->label("Postal Code") ?>
                                 </div>
                             </div>
                         </div>
@@ -161,7 +178,9 @@ use yii\widgets\ActiveForm;
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'picture')->label('Profile Picture') ?>
+                                    <?= $form
+                                        ->field($model, "picture")
+                                        ->label("Profile Picture") ?>
                                 </div>
                             </div>
                         </div>
@@ -169,12 +188,16 @@ use yii\widgets\ActiveForm;
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <h6 class="mt-3 text-primary">Google Map</h6>
                                 <h6 class="mb-2 text-secondary">ปักหมุดสถานที่ที่คุณต้องการจัดส่ง</h6>
-                                <?= $form->field($model, 'address[4]')->hiddenInput(['id' => 'user_cordinates'])->label(false) ?>
+                                <?= $form
+                                    ->field($model, "address[4]")
+                                    ->hiddenInput(["id" => "user_cordinates"])
+                                    ->label(false) ?>
                                 <div class="input-group mb-3">
                                     <input id="place" class="form-control" type="textbox" placeholder="ค้นหาสถานที่สำคัญ เช่น วัด, ตำบล, อำเภอ" />
-                                    <button id="findPlace" class="btn btn-sm btn-primary ml-2" type="button">ค้นหา</button>
+                                    <button id="findPlace" class="btn btn-sm btn-primary ml-2" type="button">
+                                        ค้นหา
+                                    </button>
                                 </div>
-
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div id="map" style="width: 100%; height: 400px"></div>
@@ -265,7 +288,9 @@ use yii\widgets\ActiveForm;
                         <div class="row gutters mt-4">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="text-right">
-                                    <?= Html::submitButton('Save', ['class' => 'btn btn-primary btn-block']) ?>
+                                    <?= Html::submitButton("Save", [
+                                        "class" => "btn btn-primary btn-block",
+                                    ]) ?>
                                 </div>
                             </div>
                         </div>

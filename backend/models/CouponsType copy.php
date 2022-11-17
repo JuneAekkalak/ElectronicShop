@@ -5,24 +5,22 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for collection "coupons".
+ * This is the model class for collection "coupons_type".
  *
  * @property \MongoDB\BSON\ObjectID|string $_id
- * @property mixed $coupon_id
- * @property mixed $code
+ * @property mixed $coupons_type_id
+ * @property mixed $title
  * @property mixed $description
- * @property mixed $discount_amount
- * @property mixed $discount_type
  * @property mixed $status
  */
-class Coupons extends \yii\mongodb\ActiveRecord
+class CouponsType extends \yii\mongodb\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function collectionName()
     {
-        return 'coupons';
+        return 'coupons_type';
     }
 
     /**
@@ -32,11 +30,9 @@ class Coupons extends \yii\mongodb\ActiveRecord
     {
         return [
             '_id',
-            'coupon_id',
-            'code',
+            'coupons_type_id',
+            'title',
             'description',
-            'discount_amount',
-            'discount_type',
             'status',
         ];
     }
@@ -47,7 +43,7 @@ class Coupons extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['coupon_id', 'code', 'description', 'discount_amount', 'discount_type', 'status'], 'safe']
+            [['coupons_type_id', 'title', 'description', 'status'], 'safe']
         ];
     }
 
@@ -58,11 +54,9 @@ class Coupons extends \yii\mongodb\ActiveRecord
     {
         return [
             '_id' => 'ID',
-            'coupon_id' => 'Coupon ID',
-            'code' => 'Code',
+            'coupons_type_id' => 'Coupons Type ID',
+            'title' => 'Title',
             'description' => 'Description',
-            'discount_amount' => 'Discount Amount',
-            'discount_type' => 'Discount Type',
             'status' => 'Status',
         ];
     }
