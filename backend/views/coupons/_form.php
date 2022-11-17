@@ -16,17 +16,19 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'coupon_id') ?>
 
-    <?= $form->field($model, 'code') ?>
+    <?= $form->field($model, 'code')->label('Code (โค้ดส่วนลด)') ?>
 
     <?= $form->field($model, 'description') ?>
 
-    <?= $form->field($model, 'discount_amount') ?>
+    <?= $form->field($model, 'minimum_price')->label('Minimum Price (ราคาขั้นต่ำ)') ?>
+
+    <?= $form->field($model, 'discount_amount')->label('Discount Amount (จำนวนที่ลด หากเป็นลดด้วยเปอร์เซ็นให้ใส่ 1-100)') ?>
 
     <?php $type_items = ArrayHelper::map(CouponsType::find()->where(['status' => '1'])->all(), 'coupons_type_id', 'title'); ?>
     <?= $form->field($model, 'discount_type')->dropDownList(
         $type_items,
         ['prompt' => 'Select Coupon Type']
-    ) ?>
+    )->label('Discount Type (ประเภทส่วนลด)') ?>
 
     <?= $form->field($model, 'status')->dropDownList(
         ["1" => "Active", "2" => "Inactive"],

@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'coupon_id',
             'code',
             'description',
+            'minimum_price',
             'discount_amount',
             'discount_type',
             'status',

@@ -11,6 +11,7 @@ use Yii;
  * @property mixed $coupon_id
  * @property mixed $code
  * @property mixed $description
+ * @property mixed $minimum_price
  * @property mixed $discount_amount
  * @property mixed $discount_type
  * @property mixed $status
@@ -35,6 +36,7 @@ class Coupons extends \yii\mongodb\ActiveRecord
             'coupon_id',
             'code',
             'description',
+            'minimum_price',
             'discount_amount',
             'discount_type',
             'status',
@@ -47,7 +49,7 @@ class Coupons extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['coupon_id', 'code', 'description', 'discount_amount', 'discount_type', 'status'], 'safe']
+            [['coupon_id', 'code', 'description', 'minimum_price', 'discount_amount', 'discount_type', 'status'], 'safe']
         ];
     }
 
@@ -61,6 +63,7 @@ class Coupons extends \yii\mongodb\ActiveRecord
             'coupon_id' => 'Coupon ID',
             'code' => 'Code',
             'description' => 'Description',
+            'minimum_price' => 'Minimum Price',
             'discount_amount' => 'Discount Amount',
             'discount_type' => 'Discount Type',
             'status' => 'Status',
