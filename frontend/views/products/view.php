@@ -118,7 +118,7 @@ $form = ActiveForm::begin(); ?>
                                 'options' => [
                                     'tag' => 'div',
                                     'class' => 'input-number',
-                                ]])->textInput(['type'=>'number','min' => 0, 'max' => 10, 'step' => 1,'value' => $quantity ])->label(false);?>
+                                ]])->textInput(['type'=>'number','min' => 1, 'max' => 10, 'step' => 1,'value' => $quantity ])->label(false);?>
                                 <!-- <input class="input-number" type="text"value="1" min="0" max="10" name="qty"> -->
                         </div>
                         <?php

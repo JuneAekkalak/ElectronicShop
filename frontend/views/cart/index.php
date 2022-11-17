@@ -102,10 +102,11 @@ $vat = 0;
                 <td colspan="5" style="overflow-x: hidden;">
                   <div class="row">
                     <div class="col">
+                      <h3>มีโค้ดส่วนลดหรือไม่ ?</h3>
                       <input type="text" class="form-control coupon-code" placeholder="Coupon Code" />
                     </div>
                     <div class="col">
-                      <button class="btn bg-success text-white btn-block text-center use-code">Use Code</button>
+                      <button class="btn bg-success text-white btn-block text-center use-code" style="position: absolute; bottom: 0;">Use Code</button>
                     </div>
                   </div>
                 </td>
