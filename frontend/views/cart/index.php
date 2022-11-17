@@ -21,6 +21,7 @@ $subtotal = 0;
 $amount = 0;
 $vat = 0;
 ?>
+
 <section style="margin: 0px 0;">
   <!-- link bar -->
   <div class="container">
@@ -125,7 +126,7 @@ $vat = 0;
                   <h5>Subtotal</h5>
                   <h6>(VAT Include)</h6>
                 </td>
-                <td>
+                <td style="text-align: right;">
                   <h5 class="sub-total" style="display: none;"><?= $subtotal ?></h5>
                   <h5><?= number_format($subtotal) ?> ฿</h5>
                 </td>
@@ -135,9 +136,20 @@ $vat = 0;
                 <td></td>
                 <td colspan="2">
                   <h5>Discount</h5>
+                  <h5><span class="code-used badge bg-success text-white"></span></h5>
                 </td>
-                <td>
+                <td style="text-align: right;">
                   <h5><span class="discount">0</span> ฿</h5>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td colspan="2">
+                  <h5>Total</h5>
+                </td>
+                <td style="text-align: right;">
+                  <h5><span class="total">0</span> ฿</h5>
                 </td>
               </tr>
             </tbody>
@@ -160,13 +172,16 @@ $vat = 0;
       let subTotal = parseInt($('.sub-total').text());
       let result;
 
-      if(code.length === 0) {
+      if (code.length === 0) {
         return;
       }
 
       result = ((code / 100) * subTotal);
 
+      // set result to html element
+      $('.code-used').text('CODE \"'+code+'\"');
       $('.discount').text(result.toLocaleString());
+      $('.total').text((subTotal - result).toLocaleString());
     });
   });
 </script>
