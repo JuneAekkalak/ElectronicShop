@@ -188,30 +188,3 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
 <?php
   // echo $this->context->actionCoupon("DISC20");
 ?>
-
-
-
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script type="text/javascript">
-  /*
-  $(document).ready(function() {
-    $('.use-code').click(function(e) {
-      e.preventDefault();
-      let code = $('.coupon-code').val();
-      let subTotal = parseInt($('.sub-total').text());
-      let result;
-
-      if (code.length === 0) {
-        return;
-      }
-
-      result = ((code / 100) * subTotal);
-
-      // set result to html element
-      $('.code-used').text('CODE \"' + code + '\"');
-      $('.discount').text(result.toLocaleString());
-      $('.total').text((subTotal - result).toLocaleString());
-    });
-  });
-  */
-</script>
