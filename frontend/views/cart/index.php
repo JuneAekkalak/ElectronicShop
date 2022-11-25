@@ -20,6 +20,14 @@ $total = 0;
 $subtotal = 0;
 $amount = 0;
 $vat = 0;
+// here is a discount price from discount code
+$coupon_code = '';
+$coupon_discount = 0;
+
+if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
+  $coupon_code = $_GET['coupon_code'];
+  $coupon_discount = $this->context->actionCoupon($coupon_code);
+}
 ?>
 
 <section style="margin: 0px 0;">
@@ -38,11 +46,11 @@ $vat = 0;
     <div class="container">
       <h1>Cart</h1>
       <?php
-      foreach ($cart as $index => $item) {
-        $amount += $item->quantity;
-      }
+        foreach ($cart as $index => $item) {
+          $amount += $item->quantity;
+        }
       ?>
-      <p>คุณมีสินค้าทั้งหมด <?= $amount ?> ชั้น</p>
+      <p>คุณมีสินค้าทั้งหมด <?= $amount ?> ชิ้น</p>
       <br>
       <div class="cart_inner">
         <div class="table-responsive">
@@ -106,7 +114,7 @@ $vat = 0;
                       <input type="text" class="form-control coupon-code" placeholder="Coupon Code" />
                     </div>
                     <div class="col">
-                      <button class="btn bg-success text-white btn-block text-center use-code" style="position: absolute; bottom: 0;">Use Code</button>
+                      <button class="btn bg-success text-white btn-block text-center use-code" style="position: absolute; bottom: 0;">Apply</button>
                     </div>
                   </div>
                 </td>
@@ -128,10 +136,24 @@ $vat = 0;
                 <td></td>
                 <td colspan="2">
                   <h5>Discount</h5>
-                  <h5><span class="code-used badge bg-success text-white"></span></h5>
+                  <h5>
+                    <?php
+                      if(strlen($coupon_code) !== 0) {
+                        echo "<span class=\"code-used badge bg-success text-white\">".$coupon_code."</span>";
+                      }
+                    ?>
+                  </h5>
                 </td>
                 <td style="text-align: right;">
-                  <h5><span class="discount">0</span> ฿</h5>
+                  <h5><span class="discount">
+                    <?php
+                      if($coupon_discount) {
+                        echo $coupon_discount;
+                      } else {
+                        echo 0;
+                      }
+                    ?>
+                  </span> ฿</h5>
                 </td>
               </tr>
               <tr>
@@ -141,7 +163,15 @@ $vat = 0;
                   <h5>Total</h5>
                 </td>
                 <td style="text-align: right;">
-                  <h5><span class="total">0</span> ฿</h5>
+                  <h5><span class="total">
+                    <?php
+                      if($coupon_discount) {
+                        echo number_format($subtotal - $coupon_discount);
+                      } else {
+                        echo number_format($subtotal);
+                      }
+                    ?>
+                  </span> ฿</h5>
                 </td>
               </tr>
             </tbody>
@@ -156,11 +186,12 @@ $vat = 0;
 </section>
 
 <?php
-echo $this->context->checkCoupon("DISC20");
+  // echo $this->context->actionCoupon("DISC20");
 ?>
 
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
   /*
   $(document).ready(function() {
