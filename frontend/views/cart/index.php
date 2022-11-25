@@ -111,10 +111,10 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                   <div class="row">
                     <div class="col">
                       <h3>มีโค้ดส่วนลดหรือไม่ ?</h3>
-                      <input type="text" class="form-control coupon-code" placeholder="Coupon Code" />
+                      <input type="text" class="form-control coupon-code" placeholder="Coupon Code" id="coupon-code" />
                     </div>
                     <div class="col">
-                      <button class="btn bg-success text-white btn-block text-center use-code" style="position: absolute; bottom: 0;">Apply</button>
+                      <button class="btn bg-success text-white btn-block text-center use-code" style="position: absolute; bottom: 0;" onclick="applyCoupon()">Apply</button>
                     </div>
                   </div>
                 </td>
@@ -185,6 +185,15 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
   </section>
 </section>
 
-<?php
-  // echo $this->context->actionCoupon("DISC20");
-?>
+
+<script type="text/javascript">
+  // handle coupon system
+  function applyCoupon() {
+    const coupon_code = document.getElementById('coupon-code').value;
+
+    if(coupon_code.length === 0) 
+      return;
+
+    window.location.assign('http://localhost:8080/ElectronicShop/frontend/web/index.php?r=cart/index&coupon_code='+coupon_code);
+  }
+</script>
