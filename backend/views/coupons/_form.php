@@ -14,13 +14,13 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'coupon_id') ?>
+    <?= $form->field($model, 'coupon_id')->label('Coupon ID (ct-xx)') ?>
 
     <?= $form->field($model, 'code')->label('Code (โค้ดส่วนลด)') ?>
 
     <?= $form->field($model, 'description') ?>
 
-    <?= $form->field($model, 'minimum_price')->label('Minimum Price (ราคาขั้นต่ำ)') ?>
+    <?= $form->field($model, 'minimum_price')->label('Minimum Price (ยอดรวมขั้นต่ำ)') ?>
 
     <?= $form->field($model, 'discount_amount')->label('Discount Amount (จำนวนที่ลด หากเป็นลดด้วยเปอร์เซ็นให้ใส่ 1-100)') ?>
 
@@ -28,7 +28,7 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'discount_type')->dropDownList(
         $type_items,
         ['prompt' => 'Select Coupon Type']
-    )->label('Discount Type (ประเภทส่วนลด)') ?>
+    )->label('Discount Type (Percentage = ลดเป็นเปอร์เซ็น, Fixed Price = ลดด้วยราคา)') ?>
 
     <?= $form->field($model, 'status')->dropDownList(
         ["1" => "Active", "2" => "Inactive"],
