@@ -148,7 +148,7 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                   <h5><span class="discount">
                     <?php
                       if($coupon_discount) {
-                        echo $coupon_discount;
+                        echo number_format($coupon_discount);
                       } else {
                         echo 0;
                       }

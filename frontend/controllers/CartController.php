@@ -145,7 +145,7 @@ class CartController extends Controller
         }
 
         // find coupon type
-        $coupon_type = CouponsType::find()->where(['discount_type' => $coupon->discount_type])->one();
+        $coupon_type = CouponsType::find()->where(['coupons_type_id' => $coupon->discount_type])->one();
 
         // get cart value
         $cart = Cart::find()->where(["user_id"=>(String)Yii::$app->user->identity->id])->all();
@@ -160,8 +160,8 @@ class CartController extends Controller
         }
 
         // percentate discount
-        if($coupon_type == 'Percentage discount') {
-            return $coupon->discount_amount * 100;
+        if($coupon_type->title == 'Percentage discount') {
+            return ($coupon->discount_amount / 100) * $subTotal;
         }
 
         // normal discout
