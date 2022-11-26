@@ -111,10 +111,18 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                   <div class="row">
                     <div class="col">
                       <h3>มีโค้ดส่วนลดหรือไม่ ?</h3>
-                      <input type="text" class="form-control coupon-code" id="coupon-code" placeholder="<?php echo ($coupon_code) ? $coupon_code : 'Coupon Code' ;  ?>" />
+                      <input type="text" class="form-control coupon-code" id="coupon-code" placeholder="<?php echo ($coupon_code) ? $coupon_code : 'Coupon Code' ; ?>" <?php echo ($coupon_code) ? 'disabled' : null  ; ?> />
                     </div>
                     <div class="col">
-                      <button class="btn bg-success text-white btn-block text-center use-code" style="position: absolute; bottom: 0;" onclick="applyCoupon()">Apply</button>
+                      <button class="btn <?php echo (!$coupon_code) ? 'bg-success' : 'btn-danger' ; ?> text-white btn-block text-center use-code" style="position: absolute; bottom: 0;" onclick="applyCoupon()">
+                          <?php
+                            if(!$coupon_code) {
+                                echo "Apply";
+                            } else {
+                                echo "Cancel";
+                            }
+                          ?>
+                      </button>
                     </div>
                   </div>
                 </td>
@@ -191,6 +199,12 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
   function applyCoupon() {
     const coupon_code = document.getElementById('coupon-code').value;
 
+    // check if user is alreay used coupon code
+    if(document.getElementById('coupon-code').disabled === true) {
+        return window.location.assign('index.php?r=cart/index');
+    }
+
+    // check if user no enter the coupon code
     if(coupon_code.length === 0)
       return;
 
