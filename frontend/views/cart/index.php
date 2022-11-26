@@ -191,9 +191,10 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
   function applyCoupon() {
     const coupon_code = document.getElementById('coupon-code').value;
 
-    if(coupon_code.length === 0) 
+    if(coupon_code.length === 0)
       return;
 
-    window.location.assign('http://localhost:8080/ElectronicShop/frontend/web/index.php?r=cart/index&coupon_code='+coupon_code);
+    // window.location.assign('http://localhost:8080/ElectronicShop/frontend/web/index.php?r=cart/index&coupon_code='+coupon_code);
+    window.location.assign('index.php?r=cart/index&coupon_code='+coupon_code);
   }
 </script>
