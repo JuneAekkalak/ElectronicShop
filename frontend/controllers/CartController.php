@@ -140,7 +140,9 @@ class CartController extends Controller
 
         // if coupon doesn't exists
         if(!$coupon) {
+            Yii::$app->session->setFlash('error', 'Invalid Coupon');
             $this->redirect(['index']);
+
             return 0;
         }
 
@@ -161,10 +163,12 @@ class CartController extends Controller
 
         // percentate discount
         if($coupon_type->title == 'Percentage discount') {
+            Yii::$app->session->setFlash('success', 'Apply Coupon Success');
             return ($coupon->discount_amount / 100) * $subTotal;
         }
 
         // normal discout
+        Yii::$app->session->setFlash('success', 'Apply Coupon Success');
         return $coupon->discount_amount;
     }
 
