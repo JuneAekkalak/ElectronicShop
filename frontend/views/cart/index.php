@@ -111,7 +111,7 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                   <div class="row">
                     <div class="col">
                       <h3>มีโค้ดส่วนลดหรือไม่ ?</h3>
-                      <input type="text" class="form-control coupon-code" placeholder="Coupon Code" id="coupon-code" />
+                      <input type="text" class="form-control coupon-code" id="coupon-code" placeholder="<?php echo ($coupon_code) ? $coupon_code : 'Coupon Code' ;  ?>" />
                     </div>
                     <div class="col">
                       <button class="btn bg-success text-white btn-block text-center use-code" style="position: absolute; bottom: 0;" onclick="applyCoupon()">Apply</button>

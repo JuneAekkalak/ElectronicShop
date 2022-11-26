@@ -168,7 +168,7 @@ class CartController extends Controller
         return $coupon->discount_amount;
     }
 
-    // test method; you can delete it
+    // test method
     public function actionIndex2()
     {
         // return $code;
