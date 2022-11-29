@@ -95,7 +95,8 @@ class BrandController extends Controller
     public function actionUpdate($_id)
     {
         $model = $this->findModel($_id);
-
+        // var_dump($model->status);
+        // exit();
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', '_id' => (string) $model->_id]);
         }
