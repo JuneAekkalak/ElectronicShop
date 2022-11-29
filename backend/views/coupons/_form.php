@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'coupon_id')->label('Coupon ID (ct-xx)') ?>
+    <?= $form->field($model, 'coupon_id')->label('Coupon ID (c-xx)') ?>
 
     <?= $form->field($model, 'code')->label('Code (โค้ดส่วนลด)') ?>
 
