@@ -98,9 +98,22 @@ class ProductsController extends Controller
     public function actionUpdate($_id)
     {
         $model = $this->findModel($_id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', '_id' => (string) $model->_id]);
+        $prveStock = '';
+        $prveStock = $model->inStock;
+        // var_dump($prveStock);
+        if($this->request->isPost && $model->load($this->request->post())) {
+            
+            // var_dump($prveStock);
+            // var_dump($model->status);
+            // exit();
+            if($prveStock > 0 && $model->status == '2') {
+                Yii::$app->session->setFlash('warning', 'In stock still available The product cannot be removed.');
+            } 
+             else {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', '_id' => (string) $model->_id]);
+                }
+            }
         }
 
         return $this->render('update', [
@@ -117,8 +130,13 @@ class ProductsController extends Controller
      */
     public function actionDelete($_id)
     {
-        $this->findModel($_id)->delete();
-
+        // var_dump($this->findModel($_id));
+        $model = $this->findModel($_id);
+        // var_dump($model->inStock);
+        if($model->inStock > 0) {
+            Yii::$app->session->setFlash('warning', 'In stock still available The product cannot be removed.');
+        } else $this->findModel($_id)->delete();
+       
         return $this->redirect(['index']);
     }
 
