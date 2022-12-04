@@ -15,6 +15,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use app\models\Products;
 
 /**
  * Site controller
@@ -270,5 +271,12 @@ class SiteController extends Controller
     // shop by type
     public function actionShopByType($type_id) {
         return $this->render("shop-by-type", ["type_id" => $type_id]);
+    }
+
+    // search product
+    public function actionSearchProduct($productName) {
+        
+        $products = Products::find()->where(['LIKE', 'productName', $productName, 'status' => '1'])->all();
+        return $products;
     }
 }

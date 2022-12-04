@@ -199,9 +199,9 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
   function applyCoupon() {
     const coupon_code = document.getElementById('coupon-code').value;
 
-    // check if user is alreay used coupon code
+    // cancel coupon
     if(document.getElementById('coupon-code').disabled === true) {
-        return window.location.assign('index.php?r=cart/index');
+      return window.location.assign('index.php?r=cart/index');
     }
 
     // check if user no enter the coupon code
