@@ -6,16 +6,18 @@ use app\models\Brand;
 use app\models\Type;
 // variables
 $type = Type::find()->where(['status' => '1'])->all();
-$product = Products::find()->where(['status' => '1'])->all();
+// $product = Products::find()->where(['status' => '1'])->all();
 $brandName;
 $typeName;
 $searched = false;
-$searchedProducts;
+$products;
 
 // search product handler
 if (isset($_GET['product_name'])) {
-    $searchedProducts = $this->context->actionSearchProduct($_GET['product_name']);
+    $products = $this->context->actionSearchProduct($_GET['product_name']);
     $searched = true;
+} else {
+    $products = Products::find()->where(['status' => '1'])->all();
 }
 ?>
 
@@ -33,7 +35,7 @@ if (isset($_GET['product_name'])) {
     <div class="container">
         <div class="title" style="margin-bottom: 3em !important;">
             <h1>All Products</h1>
-            มีสินค้าพร้อมขายทั้งหมด <?= count($product) ?> ชิ้น
+            มีสินค้าพร้อมขายทั้งหมด <?= count($products) ?> ชิ้น
             <br>
             <br>
             <?= Html::a('< กลับไปหน้าหลัก', ['/site/index'], ['class' => 'h5']) ?>
@@ -41,7 +43,7 @@ if (isset($_GET['product_name'])) {
         <div class="row">
             <?php
                 if($searched) {
-                    foreach ($searchedProducts as $index => $model) { ?>
+                    foreach ($products as $index => $model) { ?>
                         <div class="col-md-3 col-6" style="margin-bottom: 4em;">
                         <!-- card item -->
                         <div class="single_product_model">
@@ -49,7 +51,7 @@ if (isset($_GET['product_name'])) {
                                 <img src="<?= $model->productImage[1] ?>" alt="">
                             </div>
                             <div class="single_product_text mt-5" style="height: 220px;">
-                                <h4><?= $model->productName ?></h4>
+                                <h4><?= strlen($model->productName) > 80 ? mb_substr($model->productName, 0, 80, 'UTF-8') . "..." : " " ?></h4>
                                 <?php $brandName = Brand::find()->where(['brand_id' => $model->brand_id])->one()->brandName; ?>
                                 <p><?= $brandName ?></p>
                                 <div class="d-flex justify-content-between">
@@ -69,7 +71,7 @@ if (isset($_GET['product_name'])) {
                     </div>
                     <?php }
                 } else {
-                    foreach ($product as $index => $model) { ?>
+                    foreach ($products as $index => $model) { ?>
                         <div class="col-md-3 col-6" style="margin-bottom: 4em;">
                             <!-- card item -->
                             <div class="single_product_model">
@@ -107,7 +109,7 @@ if (isset($_GET['product_name'])) {
 <script>
     searchProduct = () => {
         const productName = document.getElementById('productName').value;
-        
+
         // redirect with productName
         window.location.assign('index.php?r=site%2Fall-product&product_name=' + productName);
     }
