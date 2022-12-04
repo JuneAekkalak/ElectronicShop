@@ -66,7 +66,7 @@ class ProductsController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($_id),
             'product_id' => $_id,
-
+            
             'cartModel' => $cartModel
         ]);
     }
