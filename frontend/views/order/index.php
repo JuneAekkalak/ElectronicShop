@@ -142,7 +142,7 @@ $vat = 0;
                     <div class="check"></div>
                     </div>
                 </div>
-                <a class="btn_3" href="#">Proceed to Paypal</a>
+                <a class="btn_3" href="#">สั่งซื้อสินค้า</a>
                 </div>
             </div>
             </div>
