@@ -186,7 +186,7 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
           </table>
           <div class="checkout_btn_inner float-right">
             <?= Html::a('Continue Shopping', ['/site/index'], ['class' => 'btn_1']) ?>
-            <?= Html::a('Proceed to checkout', ['/order/index'], ['class' => 'btn_1 checkout_btn_1 bg-primary text-light']) ?>
+            <a href="index.php?r=order/index" class="btn_1 checkout_btn_1 bg-primary text-light">Proceed to checkout</a>
           </div>
         </div>
       </div>
