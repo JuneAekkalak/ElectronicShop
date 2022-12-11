@@ -16,6 +16,8 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use app\models\Products;
+use yii\db\Query;
+use yii\mongodb\Query as MongodbQuery;
 
 /**
  * Site controller
@@ -275,8 +277,9 @@ class SiteController extends Controller
 
     // search product
     public function actionSearchProduct($productName) {
-        
-        $products = Products::find()->where(['LIKE', 'productName', $productName, 'status' => '1'])->all();
+        // $products = Products::find()->where(['LIKE', 'productName', $productName, 'status' => '1'])->all();
+        // $products = Products::find()->where(['>=', 'productPrice', '6700'])->andWhere(['<=', 'productPrice', '10000'])->andWhere(['status' => '1'])->all();;
+        $products = Products::find()->where(['status' => '1'])->all();
         return $products;
     }
 }

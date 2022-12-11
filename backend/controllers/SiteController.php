@@ -34,7 +34,7 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                    [                
+                    [
                         'actions' => ['view', 'update','delete'],
                         'allow' => true,
                         'roles' => ['@'],
@@ -85,7 +85,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

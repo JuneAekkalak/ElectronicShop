@@ -13,8 +13,44 @@ $searched = false;
 $products;
 
 // search product handler
-if (isset($_GET['product_name'])) {
-    $products = $this->context->actionSearchProduct($_GET['product_name']);
+if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) {
+    $min = 0;
+    $max = PHP_INT_MAX;
+    $product_name = '';
+    $brand = [];
+    $type = [];
+
+    if (isset($_GET['product_name']))
+        if (!empty($_GET['product_name']))
+            $product_name = $_GET['product_name'];
+    if (isset($_GET['min']))
+        if (!empty($_GET['min']))
+            $min = $_GET['min'];
+    if (isset($_GET['max']))
+        if (!empty($_GET['max']))
+            $max = $_GET['max'];
+    if (isset($_GET['brand']))
+        if (!empty($_GET['brand']))
+            $brand = $_GET['brand'];
+    if (isset($_GET['type']))
+        if (!empty($_GET['type']))
+            $type = $_GET['type'];
+
+    $products = [];
+    // QUERY FROM DATABASE
+    if (isset($_GET['brand']) && isset($_GET['type']))
+        $result = Products::find()->where(['LIKE', 'productName', $product_name, 'status' => '1'])->andWhere(['in', 'brand_id', $brand])->andWhere(['in', 'type_id', $type])->all();
+    else if (isset($_GET['brand']))
+        $result = Products::find()->where(['LIKE', 'productName', $product_name, 'status' => '1'])->andWhere(['in', 'brand_id', $brand])->all();
+    else if (isset($_GET['type']))
+        $result = Products::find()->where(['LIKE', 'productName', $product_name, 'status' => '1'])->andWhere(['in', 'type_id', $type])->all();
+
+    // $result = Products::find()->where(['LIKE', 'productName', $product_name, 'status' => '1'])->andWhere(['in', 'brand_id', $brand])->andWhere(['in', 'type_id', $type])->all();
+    foreach ($result as $key => $item) {
+        if ($item->productPrice >= $min && $item->productPrice <= $max) {
+            array_push($products, $item);
+        }
+    }
     $searched = true;
 } else {
     $products = Products::find()->where(['status' => '1'])->all();
@@ -32,47 +68,61 @@ if (isset($_GET['product_name'])) {
 </head>
 
 <div class="row container-fluid">
-    <div class="col-3">
+    <div class="col-md-3">
         <div class="card text-bg-light">
             <div class="card-body">
                 <div class="flex">
                     <div class="mb-2">
                         <label>ช่วงราคาสินค้า</label>
                         <div class="d-inline-flex align-items-center">
-                            <input type="text" class="form-control" placeholder="Min">
+                            <input type="text" id="min" class="form-control" placeholder="Min" value="<?php echo isset($_GET['min']) ? $_GET['min'] : null ?>">
                             <span class="mx-2">-</span>
-                            <input type="text" class="form-control" placeholder="Max">
+                            <input type="text" id="max" class="form-control" placeholder="Max" value="<?php echo isset($_GET['max']) ? $_GET['max'] : null ?>">
                         </div>
                     </div>
+                    <hr>
                     <div class="mb-2">
                         <label>แบรนด์</label>
                         <?php $brand_items = Brand::find()->where(['status' => '1'])->all();
-                            foreach ($brand_items as $key => $value) { ?>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="<?= $value->brandName ?>;" value="<?= $value->brandName ?>">
-                                    <label class="form-check-label"><?= $value->brandName ?></label>
-                                </div>
-                            <?php }
+                        foreach ($brand_items as $key => $value) {
+                            if (isset($_GET['brand']))
+                                $isSelected = in_array($value->brand_id, $_GET['brand']);
+                            else
+                                $isSelected = false;
+                        ?>
+                            <div class="form-check">
+                                <input class="form-check-input" name="brand[]" id="<?= $value->brandName ?>" type="checkbox" name="<?= $value->brandName ?>;" value="<?= $value->brand_id ?>" <?php echo $isSelected ? 'checked' : null ?>>
+                                <label class="form-check-label" for="<?= $value->brandName ?>"><?= $value->brandName ?></label>
+                            </div>
+                        <?php }
                         ?>
                     </div>
+                    <hr>
                     <div class="mb-2">
                         <label>ประเภท</label>
                         <?php $type_items = Type::find()->where(['status' => '1'])->all();
-                            foreach ($type_items as $key => $value) { ?>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="<?= $value->typeName ?>;" value="<?= $value->typeName ?>">
-                                    <label class="form-check-label"><?= $value->typeName ?></label>
-                                </div>
-                            <?php }
+                        foreach ($type_items as $key => $value) {
+                            if (isset($_GET['type']))
+                                $isSelected = in_array($value->type_id, $_GET['type']);
+                            else
+                                $isSelected = false;
+                        ?>
+                            <div class="form-check">
+                                <input class="form-check-input" name="type[]" id="<?= $value->typeName ?>" type="checkbox" name="<?= $value->typeName ?>;" value="<?= $value->type_id ?>" <?php echo $isSelected ? 'checked' : null ?>>
+                                <label class="form-check-label" for="<?= $value->typeName ?>"><?= $value->typeName ?></label>
+                            </div>
+                        <?php }
                         ?>
                     </div>
-                    <!--search button-->
-                    <button class="btn btn-primary btn-block my-1">Search</button>
+                    <!-- search button -->
+                    <button class="btn btn-primary btn-block my-1" onclick="searchProduct()">Search</button>
+                    <!-- reset sorting -->
+                    <a href="index.php?r=site%2Fall-product" class="float-right">ล้างรายการการกรองที่เลือก</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-9 container">
+    <div class="col-md-9 container">
         <section style="margin: 0px 0">
             <div class="container">
                 <div class="mb-5">
@@ -163,8 +213,20 @@ if (isset($_GET['product_name'])) {
 <script>
     searchProduct = () => {
         const productName = document.getElementById('productName').value;
+        const min = document.getElementById('min').value;
+        const max = document.getElementById('max').value;
+
+        let brand = '';
+        document.getElementsByName('brand[]').forEach(function(item) {
+            if (item.checked) brand += ('&brand[]=' + item.value);
+        })
+
+        let type = [];
+        document.getElementsByName('type[]').forEach(function(item) {
+            if (item.checked) type += ('&type[]=' + item.value);
+        })
 
         // redirect with productName
-        window.location.assign('index.php?r=site%2Fall-product&product_name=' + productName);
+        window.location.assign(`index.php?r=site%2Fall-product&product_name=${productName}&min=${min}&max=${max}${brand}${type}`);
     }
 </script>
