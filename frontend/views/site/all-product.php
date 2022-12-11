@@ -28,7 +28,7 @@ if (isset($_GET['product_name'])) {
                 <h2>ค้นหาสินค้า 🔍</h2>
             </label>
             <div class="d-flex">
-                <input type="text" id="productName" class="form-control" value="<?php echo isset($_GET['product_name']) ? $_GET['product_name'] : null; ?>">
+                <input type="text" id="productName" class="form-control" value="<?php echo isset($_GET['product_name']) ? $_GET['product_name'] : null; ?>" placeholder="ชื่อสินค้า, ยี่ห้อ">
                 <button class="btn btn-primary ml-2" onclick="searchProduct()">Search</button>
             </div>
         </div>
