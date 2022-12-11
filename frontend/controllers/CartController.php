@@ -213,12 +213,6 @@ class CartController extends Controller
                 return $this->redirect(['order/index']);
             }
         } 
-        // if ($this->request->isPost && $orderModel->load($this->request->post())) {
-        //     // $order = Order::find()->where(['user_id' => (string)Yii::$app->user->identity->id])->one();
-        //     $orderModel->save();
-
-        //     return $this->redirect(['cart/checkout']);
-        // }
 
         return $this->render('checkout', [
             'orderModel' => $orderModel,
