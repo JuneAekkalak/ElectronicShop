@@ -9,7 +9,7 @@ use Yii;
  *
  * @property \MongoDB\BSON\ObjectID|string $_id
  * @property mixed $order_id
- * @property mixed $product_id
+ * @property array $product_id
  * @property mixed $user_id
  * @property mixed $price
  * @property mixed $quantity
@@ -33,13 +33,14 @@ class Order extends \yii\mongodb\ActiveRecord
     {
         return [
             '_id',
-            'order_id',
+            // 'order_id',
             'product_id',
             'user_id',
             'price',
             'quantity',
             'payment',
             'status',
+            'parcelNumber'
         ];
     }
 
@@ -49,7 +50,7 @@ class Order extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'product_id', 'user_id', 'price', 'quantity', 'payment', 'status'], 'safe']
+            [['user_id', 'product_id', 'price', 'quantity', 'payment', 'status','parcelNumber'], 'safe']
         ];
     }
 
@@ -59,14 +60,15 @@ class Order extends \yii\mongodb\ActiveRecord
     public function attributeLabels()
     {
         return [
-            '_id' => 'ID',
-            'order_id' => 'Order ID',
+            '_id' => 'ID', //use
+            // 'order_id' => 'Order ID',
             'product_id' => 'Product ID',
             'user_id' => 'User ID',
-            'price' => 'Price',
+            'price' => 'Price',//use
             'quantity' => 'Quantity',
-            'payment' => 'Payment',
-            'status' => 'Status',
+            'payment' => 'Payment',//use
+            'status' => 'Status',//use
+            'parcelNumber' => 'parcelNumber',//use
         ];
     }
     public function getTableSchema(){

@@ -7,6 +7,9 @@ use yii\grid\GridView;
 use app\models\Cart;
 use frontend\controllers\CartController;
 use app\models\Products;
+use app\models\Order;
+use app\models\PersonalInfo;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\OrderSearch */
@@ -14,12 +17,24 @@ use app\models\Products;
 
 $this->title = 'Orders';
 
-$cart = Cart::find()->where(["user_id"=>(String)Yii::$app->user->identity->id])->all();
-$total = 0;
-$subtotal = 0;
-$amount = 0;
-$vat = 0;
+$order = Order::find()->where(["user_id"=>(String)Yii::$app->user->identity->id])->all();
+// $total = 0;
+// $subtotal = 0;
+// $amount = 0;
+// $vat = 0;
+// $coupon_discount = 0;
+// if(isset($_GET['discount']) && !empty($_GET['discount'])) {
+//   $discount = $_GET['discount'];
+//   if($discount) {
+//     $coupon_discount = $discount;
+//   } else {
+//     $coupon_discount = 0;
+//   }
+//   // var_dump($discount);
+//   // exit();
+// }
 ?>
+<?php $form = ActiveForm::begin(); ?>
 <section style="margin: 0px 0;">
     <!-- link bar -->
   <div class="container">
@@ -29,54 +44,56 @@ $vat = 0;
       </div>
     </div>
   </div>
-    <section class="checkout_area  "style="padding-bottom: 100px;">
+    <section class="checkout_area  "style="padding-bottom: 10px;">
         <div class="container">
-        <h1>Orders Details</h1>
+        <h1>รายการคำสั่งซื้อปัจจุบัน</h1>
         <div class="billing_details">
             <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
             <div class="cart_inner">
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">Product</th>
-                <th scope="col">Price</th>
-                <!-- <th scope="col">Quantity</th> -->
-                <!-- <th scope="col">Total</th> -->
-                <!-- <th scope="col">Option</th> -->
+                <th scope="col">รายการ</th>
+                <th scope="col">ราคารวม</th>
+                <th scope="col">หมายเลขพัสดุ</th>
+                <th scope="col">สถานะคำสั่งซื้อ</th>
+                <th scope="col">ช่องทางชำระเงิน</th>
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($cart as $model) :
-                // $subtotal += (int)$model->quantity * (int)$model->price;
-                $product = Products::find()->where(["product_id" => $model->product_id])->one();
-                // $total += (int)$model->quantity * (int)$product->productPrice;
+              <?php foreach ($order as $model) :
                 // var_dump($product);
+                // exit();
               ?>
                 <tr>
                   <td>
                     <div class="media">
-                      <div class="d-flex " style="height: 90px; width: 130px;">
-                        <img src="<?= $product->productImage[0] ?>" alt="" />
-                      </div>
                       <div class="media-body">
-                        <p>
-                          <?= $product->productName ?></p>
+                        <span>
+                          <?php 
+                          for ($i=0 ;$i < count($model->product_id) ;$i++){
+                            $product = Products::find()->where(["product_id" => $model->product_id[$i]])->one();
+                            $qty = $model->quantity[$i];
+                            echo $i+1 ." ". $product['productName']. " x $qty" ."<br> ";
+                           
+                        }?></span>
                       </div>
                     </div>
                   </td>
                   <td>
                     <h5><?= number_format($model->price) ?></h5>
                   </td>
-                  <!-- <td>
-                    <div class="product_count">
-                      <input class="input-number" type="number" style="text-align: center;" value="<?= $model->quantity ?>" disabled>
-                    </div>
-                  </td> -->
-                  <!-- <td>
-                    <h5><?= number_format($total) ?></h5>
-                  </td> -->
+                  <td>
+                    <h5><?= $model->parcelNumber ?></h5>
+                  </td>
+                  <td>
+                    <h5><?= $model->status ?></h5>
+                  </td>
+                  <td>
+                    <h5><?= $model->payment ?></h5>
+                  </td>
                 </tr>
             </tbody>
             <?php $total = 0;
@@ -84,71 +101,7 @@ $vat = 0;
           </table>
         </div>
       </div>
-        </div>
-            <div class="col-lg-4">
-                <div class="order_box">
-                <h2>รายการสินค้าของคุณ</h2>
-                <ul class="list">
-                    <li>
-                    <a href="">สินค้า
-                        <span>รวม</span>
-                    </a>
-                    </li>
-                    <?php foreach ($cart as $model) :
-                        $subtotal += (int)$model->quantity * (int)$model->price;
-                        $product = Products::find()->where(["product_id" => $model->product_id])->one();
-                        $total += (int)$model->quantity * (int)$product->productPrice;
-                        // var_dump($product);
-                    ?>
-                    <li>
-                        <a href=""><?= $product->productName ?>
-                            <span class="middle">x<?= $model->quantity ?></span>
-                            <span class="last">$<?=number_format($total) ?></span>
-                        </a>
-                    </li>
-                    <?php $total = 0;
-                    endforeach; ?>
-                </ul>
-
-                <ul class="list list_2">
-                    <li>
-                    <a href="#">รวม
-                        <span>$<?= number_format($subtotal) ?></span>
-                    </a>
-                    </li>
-                    <li>
-                    <a href="#">VAT 7 %
-                        <span><?= number_format($subtotal * 0.07)?></span>
-                    </a>
-                    </li>
-                    <li>
-                    <a href="#">รวมทั้งหมด
-                        <span>$<?= number_format($subtotal + ($subtotal * 0.07) )?></span>
-                    </a>
-                    </li>
-                </ul>
-                <div class="payment_item">
-                    <div class="radion_btn">
-                    <input type="radio" id="f-option5" name="selector" />
-                    <label for="f-option5">เก็บเงินปลายทาง</label>
-                    <div class="check"></div>
-                    </div>
-                </div>
-                <div class="payment_item active">
-                    <div class="radion_btn">
-                    <input type="radio" id="f-option6" name="selector" />
-                    <label for="f-option6">โอนเงิน </label>
-                    <img src="img/product/single-product/card.jpg" alt="" />
-                    <div class="check"></div>
-                    </div>
-                </div>
-                <a class="btn_3" href="#">สั่งซื้อสินค้า</a>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
     </section>
     </section>
-    <!--================End Checkout Area =================-->
-
+<!--================End Checkout Area =================-->                   
+<?php ActiveForm::end(); ?>  

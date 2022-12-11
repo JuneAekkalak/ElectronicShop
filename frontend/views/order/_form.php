@@ -12,19 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'order_id') ?>
-
-    <?= $form->field($model, 'product_id') ?>
-
     <?= $form->field($model, 'user_id') ?>
 
     <?= $form->field($model, 'price') ?>
 
-    <?= $form->field($model, 'quantity') ?>
-
     <?= $form->field($model, 'payment') ?>
 
     <?= $form->field($model, 'status') ?>
+
+    <?= $form->field($model, 'parcelNumber') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
