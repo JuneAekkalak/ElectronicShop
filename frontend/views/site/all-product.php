@@ -115,9 +115,9 @@ if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) 
                         ?>
                     </div>
                     <!-- search button -->
-                    <button class="btn btn-primary btn-block my-1" onclick="searchProduct()">Search</button>
+                    <button class="btn btn-primary btn-block my-1" onclick="searchProduct()">Apply</button>
                     <!-- reset sorting -->
-                    <a href="index.php?r=site%2Fall-product" class="float-right">ล้างรายการการกรองที่เลือก</a>
+                    <a href="index.php?r=site%2Fall-product" class="float-right">ล้างการกรองที่เลือก</a>
                 </div>
             </div>
         </div>
