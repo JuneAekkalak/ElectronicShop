@@ -175,8 +175,7 @@ if(isset($_GET['discount']) && !empty($_GET['discount'])) {
                   echo $form->field($orderModel, 'price')->hiddenInput(['value' => $totalall])->label(false);
                   // echo $form->field($orderModel, 'product_id')->hiddenInput(['value' => $])->label(false);
                   echo $form->field($orderModel, 'status')->hiddenInput(['value' => "กำลังตรวจสอบ"])->label(false);
-                  echo $form->field($orderModel, 'parcelNumber')->hiddenInput(['value' => ""])->label(false);
-                  Html::a('Delete', ['delete', '_id' => (String)Yii::$app->user->identity->id]);
+                  echo $form->field($orderModel, 'parcelNumber')->hiddenInput(['value' => "N/A"])->label(false);
                 ?>
 
                 </div>
