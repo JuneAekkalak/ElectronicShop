@@ -223,7 +223,7 @@ if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) 
             if (item.checked) brand += ('&brand[]=' + item.value);
         })
 
-        let type = [];
+        let type = '';
         document.getElementsByName('type[]').forEach(function(item) {
             if (item.checked) type += ('&type[]=' + item.value);
         })
