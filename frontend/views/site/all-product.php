@@ -44,6 +44,8 @@ if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) 
         $result = Products::find()->where(['LIKE', 'productName', $product_name, 'status' => '1'])->andWhere(['in', 'brand_id', $brand])->all();
     else if (isset($_GET['type']))
         $result = Products::find()->where(['LIKE', 'productName', $product_name, 'status' => '1'])->andWhere(['in', 'type_id', $type])->all();
+    else
+        $result = Products::find()->where(['LIKE', 'productName', $product_name, 'status' => '1'])->all();
 
     // $result = Products::find()->where(['LIKE', 'productName', $product_name, 'status' => '1'])->andWhere(['in', 'brand_id', $brand])->andWhere(['in', 'type_id', $type])->all();
     foreach ($result as $key => $item) {
@@ -221,7 +223,7 @@ if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) 
             if (item.checked) brand += ('&brand[]=' + item.value);
         })
 
-        let type = [];
+        let type = '';
         document.getElementsByName('type[]').forEach(function(item) {
             if (item.checked) type += ('&type[]=' + item.value);
         })
