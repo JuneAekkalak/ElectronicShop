@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use app\models\Cart;
+use app\models\Order;
 use app\models\Coupons;
 use app\models\CartSearch;
 use app\models\CouponsType;
@@ -179,4 +180,44 @@ class CartController extends Controller
         // return $this->redirect(['index']);
         return $this->redirect(['index']);
     }
+    protected function findModelByUser($user_id)
+    {
+        if (($model = Cart::findOne(['_id' => $user_id])) !== null) {
+            return $model;
+        }
+    }
+
+    public function actionDeleteCart($user_id)
+    {
+        $this->findModelByUser($user_id)->delete();
+
+        return $this->redirect(['order/index']);
+    }
+
+    public function actionCheckout()
+    {
+        $orderModel = new Order();
+
+        if ($this->request->isPost) {
+            if ($orderModel->load($this->request->post())) {
+                if($orderModel->save()){
+                    $cart = Cart::find()->where(["user_id"=>(String)Yii::$app->user->identity->id])->all();
+                    foreach($cart as $index => $item) {
+                        $item = $this->actionDelete($item->_id);
+                        // var_dump($item->user_id);
+                    }
+                    
+                    // exit();
+                }
+              
+                return $this->redirect(['order/index']);
+            }
+        } 
+
+        return $this->render('checkout', [
+            'orderModel' => $orderModel,
+        ]);
+    }
+
+
 }
