@@ -11,6 +11,7 @@ use app\models\Order;
 use app\models\PersonalInfo;
 use yii\widgets\ActiveForm;
 
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\OrderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -159,33 +160,22 @@ if(isset($_GET['discount']) && !empty($_GET['discount'])) {
                     </li>
                 </ul>
                 <div class="payment_item">
-                <?php echo $form->field($orderModel, 'payment')->dropDownList(
-                    ["โอนเงิน" => "โอนเงิน", "เก็บเงินปลายทาง" => "เก็บเงินปลายทาง"],
-                    ['prompt' => 'เลือกช่องทางชำระเงิน']);?>
-
-                    <!-- <div class="radion_btn">
-                    <input type="radio" id="f-option5" name="selector" />
-                    <label for="f-option5">เก็บเงินปลายทาง</label>
-                    <div class="check"></div>
-                    </div> -->
-                </div>
-                <!-- <div class="payment_item active">
-                    <div class="radion_btn">
-                    <input type="radio" id="f-option6" name="selector" />
-                    <label for="f-option6">โอนเงิน </label>
-                    <img src="img/product/single-product/card.jpg" alt="" />
-                    <div class="check"></div>
-                    </div>
-                </div> -->
+                  <div class="mt-2">
+                    <?php echo $form->field($orderModel, 'payment')->radioList(
+                      ['โอนเงิน'=>'โอนเงิน',
+                       'เก็บเงินปลายทาง'=>'เก็บเงินปลายทาง'
+                    ])->label("ช่องทางชำระเงิน");
+                    ?>
+                  </div> 
+                </div> 
                 <?php echo Html::submitButton('สั่งซื้อสินค้า', ['class' => 'btn_3 w-100 text-center']);?>
-                <!-- <a class="btn_3" href="#">สั่งซื้อสินค้า</a> -->
+                
                 <?php 
                   echo $form->field($orderModel, 'user_id')->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false);
                   echo $form->field($orderModel, 'price')->hiddenInput(['value' => $totalall])->label(false);
                   // echo $form->field($orderModel, 'product_id')->hiddenInput(['value' => $])->label(false);
                   echo $form->field($orderModel, 'status')->hiddenInput(['value' => "กำลังตรวจสอบ"])->label(false);
-                  echo $form->field($orderModel, 'parcelNumber')->hiddenInput(['value' => ""])->label(false);
-                  Html::a('Delete', ['delete', '_id' => (String)Yii::$app->user->identity->id]);
+                  echo $form->field($orderModel, 'parcelNumber')->hiddenInput(['value' => "N/A"])->label(false);
                 ?>
 
                 </div>

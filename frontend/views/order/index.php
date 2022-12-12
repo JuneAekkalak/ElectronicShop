@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Orders';
 
-$order = Order::find()->where(["user_id"=>(String)Yii::$app->user->identity->id])->all();
+$order = Order::find()->where(["user_id"=>(String)Yii::$app->user->identity->id])->andWhere(['!=', 'status', "จัดส่งสำเร็จ"])->all();
 ?>
 <?php $form = ActiveForm::begin(); ?>
 <section style="margin: 0px 0;">
