@@ -68,7 +68,7 @@ $order = Order::find()->where(["user_id"=>(String)Yii::$app->user->identity->id]
                     </div>
                   </td>
                   <td>
-                    <h5><?= number_format($model->price) ?></h5>
+                    <h5><?= number_format($model->price, 2, '.', ',') ?></h5>
                   </td>
                   <td>
                     <h5><?= $model->parcelNumber ?></h5>
