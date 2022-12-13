@@ -219,7 +219,7 @@ if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) 
         const max = document.getElementById('max').value;
 
         // check if user enter invalid value
-        if (min > max || min < 0 || max < 0) {
+        if (min < 0 || max < 0) {
             alert('กรุณาใส่ช่วงราคาที่ถูกต้อง');
             return;
         }
