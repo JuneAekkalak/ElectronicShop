@@ -24,7 +24,7 @@ $vat = 0;
 $coupon_code = '';
 $coupon_discount = 0;
 
-if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
+if (isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
   $coupon_code = $_GET['coupon_code'];
   $coupon_discount = $this->context->actionCoupon($coupon_code);
 }
@@ -46,9 +46,9 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
     <div class="container">
       <h1>Cart</h1>
       <?php
-        foreach ($cart as $index => $item) {
-          $amount += $item->quantity;
-        }
+      foreach ($cart as $index => $item) {
+        $amount += $item->quantity;
+      }
       ?>
       <p>คุณมีสินค้าทั้งหมด <?= $amount ?> ชิ้น</p>
       <br>
@@ -111,17 +111,17 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                   <div class="row">
                     <div class="col">
                       <h3>มีโค้ดส่วนลดหรือไม่ ?</h3>
-                      <input type="text" class="form-control coupon-code" id="coupon-code" placeholder="<?php echo ($coupon_code) ? $coupon_code : 'Coupon Code' ; ?>" <?php echo ($coupon_code) ? 'disabled' : null  ; ?> />
+                      <input type="text" class="form-control coupon-code" id="coupon-code" placeholder="<?php echo ($coupon_code) ? $coupon_code : 'Coupon Code'; ?>" <?php echo ($coupon_code) ? 'disabled' : null; ?> />
                     </div>
                     <div class="col">
-                      <button class="btn <?php echo (!$coupon_code) ? 'bg-success' : 'btn-danger' ; ?> text-white btn-block text-center use-code" style="position: absolute; bottom: 0;" onclick="applyCoupon()">
-                          <?php
-                            if(!$coupon_code) {
-                                echo "Apply";
-                            } else {
-                                echo "Cancel";
-                            }
-                          ?>
+                      <button class="btn <?php echo (!$coupon_code) ? 'bg-success' : 'btn-danger'; ?> text-white btn-block text-center use-code" style="position: absolute; bottom: 0;" onclick="applyCoupon()">
+                        <?php
+                        if (!$coupon_code) {
+                          echo "Apply";
+                        } else {
+                          echo "Cancel";
+                        }
+                        ?>
                       </button>
                     </div>
                   </div>
@@ -132,7 +132,6 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                 <td></td>
                 <td colspan="2">
                   <h5>Subtotal</h5>
-                  <h6>(VAT Include)</h6>
                 </td>
                 <td style="text-align: right;">
                   <h5 class="sub-total" style="display: none;"><?= $subtotal ?></h5>
@@ -143,25 +142,36 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                 <td></td>
                 <td></td>
                 <td colspan="2">
+                  <h5>Vat 7%</h5>
+                </td>
+                <td style="text-align: right;">
+                  <h5 class="sub-total" style="display: none;"><?= $subtotal ?></h5>
+                  <h5><?= number_format($subtotal * 0.07) ?> ฿</h5>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td colspan="2">
                   <h5>Discount</h5>
                   <h5>
                     <?php
-                      if(strlen($coupon_code) !== 0) {
-                        echo "<span class=\"code-used badge bg-success text-white\">".$coupon_code."</span>";
-                      }
+                    if (strlen($coupon_code) !== 0) {
+                      echo "<span class=\"code-used badge bg-success text-white\">" . $coupon_code . "</span>";
+                    }
                     ?>
                   </h5>
                 </td>
                 <td style="text-align: right;">
                   <h5><span class="discount">
-                    <?php
-                      if($coupon_discount) {
+                      <?php
+                      if ($coupon_discount) {
                         echo number_format($coupon_discount);
                       } else {
                         echo 0;
                       }
-                    ?>
-                  </span> ฿</h5>
+                      ?>
+                    </span> ฿</h5>
                 </td>
               </tr>
               <tr>
@@ -172,26 +182,26 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                 </td>
                 <td style="text-align: right;">
                   <h5><span class="total">
-                    <?php
-                      if($coupon_discount) {
+                      <?php
+                      if ($coupon_discount) {
                         echo number_format($subtotal - $coupon_discount);
                       } else {
                         echo number_format($subtotal);
                       }
-                    ?>
-                  </span> ฿</h5>
+                      ?>
+                    </span> ฿</h5>
                 </td>
               </tr>
             </tbody>
           </table>
           <div class="checkout_btn_inner float-right">
             <?= Html::a('ซื้อสินค้าต่อ', ['/site/index'], ['class' => 'btn_1']) ?>
-            <?php if(!empty($cart)) { ?>
-                <a href="index.php?r=cart/checkout&discount=<?=$coupon_discount ?>" class="btn_1 checkout_btn_1 bg-primary text-light">ยืนยันรายการ</a>
+            <?php if (!empty($cart)) { ?>
+              <a href="index.php?r=cart/checkout&discount=<?= $coupon_discount ?>" class="btn_1 checkout_btn_1 bg-primary text-light">ยืนยันรายการ</a>
             <?php } else { ?>
-                <a href="index.php?r=cart" class="btn_1 checkout_btn_1 bg-primary text-light">ยืนยันรายการ</a>
-           <?php }?>
-              </div>
+              <a href="index.php?r=cart" class="btn_1 checkout_btn_1 bg-primary text-light">ยืนยันรายการ</a>
+            <?php } ?>
+          </div>
         </div>
       </div>
   </section>
@@ -204,15 +214,15 @@ if(isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
     const coupon_code = document.getElementById('coupon-code').value;
 
     // cancel coupon
-    if(document.getElementById('coupon-code').disabled === true) {
+    if (document.getElementById('coupon-code').disabled === true) {
       return window.location.assign('index.php?r=cart/index');
     }
 
     // check if user no enter the coupon code
-    if(coupon_code.length === 0)
+    if (coupon_code.length === 0)
       return;
 
     // window.location.assign('http://localhost:8080/ElectronicShop/frontend/web/index.php?r=cart/index&coupon_code='+coupon_code);
-    window.location.assign('index.php?r=cart/index&coupon_code='+coupon_code);
+    window.location.assign('index.php?r=cart/index&coupon_code=' + coupon_code);
   }
 </script>
