@@ -36,7 +36,7 @@ if (isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
     <div class="alert alert-dark w-100" role="alert" style="background-color: #F8F9FA;">
       <div class="d-flex justify-content-between">
         <?= Html::a('< กลับไปหน้าหลัก', ['/site/index'], ['class' => 'text-dark']) ?>
-        <?= Html::a('ไปยังหน้าชำระเงิน >', ['#'], ['class' => 'text-dark']) ?>
+        <?= Html::a('ไปยังหน้ารายการคำสั่งซื้อ >', ['/order/index'], ['class' => 'text-dark']) ?>
       </div>
     </div>
   </div>
