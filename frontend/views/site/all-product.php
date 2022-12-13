@@ -64,7 +64,7 @@ if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <style media="screen">
         h4 {
-            font-size: 100%;
+            font-size: 128%;
         }
     </style>
 </head>
@@ -77,9 +77,9 @@ if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) 
                     <div class="mb-2">
                         <label>ช่วงราคาสินค้า</label>
                         <div class="d-inline-flex align-items-center">
-                            <input type="text" id="min" class="form-control" placeholder="Min" value="<?php echo isset($_GET['min']) ? $_GET['min'] : null ?>">
+                            <input type="text" id="min" class="form-control" placeholder="Min" value="<?php echo isset($_GET['min']) ? number_format($_GET['min']) : null ?>">
                             <span class="mx-2">-</span>
-                            <input type="text" id="max" class="form-control" placeholder="Max" value="<?php echo isset($_GET['max']) ? $_GET['max'] : null ?>">
+                            <input type="text" id="max" class="form-control" placeholder="Max" value="<?php echo isset($_GET['max']) ? number_format($_GET['max']) : null ?>">
                         </div>
                     </div>
                     <hr>
@@ -154,10 +154,10 @@ if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) 
                                 <!-- card item -->
                                 <div class="single_product_model">
                                     <div style="height: 220px;">
-                                        <img src="<?= $model->productImage[1] ?>" alt="">
+                                        <img style="max-height: 220px; display: block; margin: auto;" src="<?= $model->productImage[1] ?>" alt="">
                                     </div>
                                     <div class="single_product_text mt-5" style="height: 220px;">
-                                        <h4><?= strlen($model->productName) > 80 ? mb_substr($model->productName, 0, 80, 'UTF-8') . "..." : " " ?></h4>
+                                        <h4><?= $model->productName ?></h4>
                                         <?php $brandName = Brand::find()->where(['brand_id' => $model->brand_id])->one()->brandName; ?>
                                         <p><?= $brandName ?></p>
                                         <div class="d-flex justify-content-between">
@@ -182,7 +182,7 @@ if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) 
                                 <!-- card item -->
                                 <div class="single_product_model">
                                     <div style="height: 220px;">
-                                        <img src="<?= $model->productImage[1] ?>" alt="">
+                                        <img style="max-height: 220px; display: block; margin: auto;" src="<?= $model->productImage[1] ?>" alt="">
                                     </div>
                                     <div class="single_product_text mt-5" style="height: 220px;">
                                         <h4><?= $model->productName ?></h4>

@@ -36,7 +36,7 @@ $brandName;
                             <div style="height: 220px;">
                                 <img src="<?= $item->productImage[1] ?>" alt="">
                             </div>
-                            <div class="single_product_text mt-5" style="height: 270px;">
+                            <div class="single_product_text mt-2" style="height: 220px;">
                                 <h4><?= $item->productName ?></h4>
                                 <?php $brandName = Brand::find()->where(['brand_id' => $item->brand_id])->one()->brandName; ?>
                                 <p><?= $brandName ?></p>
