@@ -77,9 +77,9 @@ if (isset($_GET['product_name']) && isset($_GET['min']) && isset($_GET['max'])) 
                     <div class="mb-2">
                         <label>ช่วงราคาสินค้า</label>
                         <div class="d-inline-flex align-items-center">
-                            <input type="text" id="min" class="form-control" placeholder="Min" value="<?php echo isset($_GET['min']) ? $_GET['min'] : null ?>">
+                            <input type="text" id="min" class="form-control" placeholder="Min" value="<?php echo isset($_GET['min']) ? number_format($_GET['min']) : null ?>">
                             <span class="mx-2">-</span>
-                            <input type="text" id="max" class="form-control" placeholder="Max" value="<?php echo isset($_GET['max']) ? $_GET['max'] : null ?>">
+                            <input type="text" id="max" class="form-control" placeholder="Max" value="<?php echo isset($_GET['max']) ? number_format($_GET['max']) : null ?>">
                         </div>
                     </div>
                     <hr>
