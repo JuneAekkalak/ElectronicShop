@@ -142,18 +142,18 @@ if (isset($_GET['discount']) && !empty($_GET['discount'])) {
                 </li>
                 <li>
                   <a href="#">VAT 7 %
-                    <span>฿<?= number_format($subtotal * 0.07) // subtotal
+                    <span>฿<?= number_format($subtotal * 0.07, 2, '.', ',') // subtotal
                             ?></span>
                   </a>
                 </li>
                 <li>
                   <a href="#">ส่วนลด
-                    <span>- ฿<?= number_format($coupon_discount) ?></span>
+                    <span>- ฿<?= number_format($coupon_discount, 2, '.', ',') ?></span>
                   </a>
                 </li>
                 <li>
                   <a href="#">รวมทั้งหมด
-                    <span>฿<?= number_format($totalall += $subtotal * 0.07); // subtotal
+                    <span>฿<?= number_format($totalall += $subtotal * 0.07, 2, '.', ','); // subtotal
                             ?></span>
                   </a>
                 </li>

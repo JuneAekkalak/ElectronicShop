@@ -215,7 +215,6 @@ use yii\widgets\ActiveForm;
                                             lat: parseFloat(temp[0]),
                                             lng: parseFloat(temp[1])
                                         }
-                                        console.log(cordinates)
                                     } else {
                                         cordinates = {
                                             lat: 13.847860,

@@ -146,7 +146,7 @@ if (isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                 </td>
                 <td style="text-align: right;">
                   <h5 class="sub-total" style="display: none;"><?= $subtotal ?></h5>
-                  <h5><?= number_format($subtotal * 0.07) ?> ฿</h5>
+                  <h5><?= number_format($subtotal * 0.07, 2, '.', ',') ?> ฿</h5>
                 </td>
               </tr>
               <tr>
@@ -166,7 +166,7 @@ if (isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                   <h5><span class="discount">
                       <?php
                       if ($coupon_discount) {
-                        echo "-".number_format($coupon_discount);
+                        echo "-".number_format($coupon_discount, 2, '.', ',');
                       } else {
                         echo 0;
                       }
@@ -184,7 +184,7 @@ if (isset($_GET['coupon_code']) && !empty($_GET['coupon_code'])) {
                   <h5><span class="total">
                       <?php
                       if ($coupon_discount) {
-                        echo number_format(($subtotal - $coupon_discount) + ($subtotal * 0.07));
+                        echo number_format(($subtotal - $coupon_discount) + ($subtotal * 0.07), 2, '.', ',');
                       } else {
                         echo number_format($subtotal + ($subtotal * 0.07));
                       }
