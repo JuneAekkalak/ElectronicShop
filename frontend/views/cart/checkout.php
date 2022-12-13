@@ -44,7 +44,7 @@ if (isset($_GET['discount']) && !empty($_GET['discount'])) {
   <div class="container">
     <div class="alert alert-dark w-100" role="alert" style="background-color: #F8F9FA;">
       <div class="d-flex justify-content-between">
-        <?= Html::a('< กลับไปหน้าหลัก', ['/site/index'], ['class' => 'text-dark']) ?>
+        <?= Html::a('< กลับไปตะกร้าสินค้า', ['/cart/index'], ['class' => 'text-dark']) ?>
       </div>
     </div>
   </div>
@@ -142,7 +142,8 @@ if (isset($_GET['discount']) && !empty($_GET['discount'])) {
                 </li>
                 <li>
                   <a href="#">VAT 7 %
-                    <span>฿<?= number_format($subtotal * 0.07) // subtotal?></span>
+                    <span>฿<?= number_format($subtotal * 0.07) // subtotal
+                            ?></span>
                   </a>
                 </li>
                 <li>
@@ -152,7 +153,8 @@ if (isset($_GET['discount']) && !empty($_GET['discount'])) {
                 </li>
                 <li>
                   <a href="#">รวมทั้งหมด
-                    <span>฿<?= number_format($totalall += $subtotal * 0.07); // subtotal?></span>
+                    <span>฿<?= number_format($totalall += $subtotal * 0.07); // subtotal
+                            ?></span>
                   </a>
                 </li>
               </ul>
@@ -192,6 +194,8 @@ if (isset($_GET['discount']) && !empty($_GET['discount'])) {
           <span><?= $personal->address[1] ?></span>
           <span><?= $personal->address[2] ?></span>
           <span><?= $personal->address[3] ?></span>
+          <br>
+          <span>พิกัด <?= $personal->address[4] ?></span>
         </div>
       </div>
     </div>
